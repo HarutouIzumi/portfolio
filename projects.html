@@ -52,9 +52,63 @@
         
         .page-title {
             text-align: center; 
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             font-size: 2.5rem;
             font-weight: 700;
+        }
+
+        /* =========================================
+           SUB-NAVIGATION BAR (TABS)
+           ========================================= */
+        .sub-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            border: 2px solid var(--grad-border);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 30px;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: var(--glass);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(123, 44, 191, 0.2);
+        }
+
+        .tab-btn.active {
+            background-image: var(--grad-text);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(0, 180, 216, 0.4);
+        }
+
+        /* Ẩn các project card mặc định */
+        .tab-content {
+            display: none;
+            animation: fadeEffect 0.5s ease-in-out;
+        }
+
+        /* Hiển thị project card đang được chọn */
+        .tab-content.active-tab {
+            display: block;
+        }
+
+        /* Hiệu ứng chuyển tab mượt mà */
+        @keyframes fadeEffect {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Project Card (Glassmorphism cải tiến) */
@@ -100,7 +154,7 @@
 </head>
 <body>
     <header class="main-header">
-        <a href="index.html" class="logo">Quân<span>.Digital</span></a>
+        <a href="index.html" class="logo">Digital<span> Portfolio</span></a>
         <nav class="nav-menu">
             <a href="index.html">Giới thiệu</a>
             <a href="projects.html" class="active">Dự án</a>
@@ -111,53 +165,95 @@
     <div class="container">
         <h1 class="page-title gradient-text">Các Dự Án Thành Phần</h1>
 
-        <div class="project-card">
-            <h2 class="gradient-text">Nhiệm vụ 1: Thao tác cơ bản với tệp tin (Tuần 1)</h2>
+        <!-- Sub Navigation Bar -->
+        <div class="sub-nav">
+            <button class="tab-btn active" onclick="openTab(event, 'tuan1')">Tuần 1</button>
+            <button class="tab-btn" onclick="openTab(event, 'tuan2')">Tuần 2</button>
+            <button class="tab-btn" onclick="openTab(event, 'tuan3')">Tuần 3</button>
+            <button class="tab-btn" onclick="openTab(event, 'tuan4')">Tuần 4</button>
+            <button class="tab-btn" onclick="openTab(event, 'tuan5')">Tuần 5</button>
+            <button class="tab-btn" onclick="openTab(event, 'tuan6')">Tuần 6</button>
+            <button class="tab-btn" onclick="openTab(event, 'tuan7')">Tuần 7</button>
+        </div>
+
+        <!-- Project Content: Tuần 1 -->
+        <div id="tuan1" class="project-card tab-content active-tab">
+            <h2 class="gradient-text">Nhiệm vụ 1: Thao tác cơ bản với tệp tin</h2>
             <p><strong>Mục tiêu:</strong> Làm chủ các thao tác quản lý dữ liệu trên môi trường máy tính.<br>
             <strong>Quá trình:</strong> Thiết lập cấu trúc thư mục logic, sử dụng phím tắt, đổi tên và sắp xếp tập tin gọn gàng.</p>
-            <iframe src="https://drive.google.com/file/d/1f6WgnxPNUhk8yi9fmyXUzhRlb1WQ4OWp/preview"></iframe>
+            <iframe src="https://drive.google.com/file/d/1f6WgnxPNUhk8yi9fmyXUzhRlb1WQ4OWp/preview" loading="lazy"></iframe>
         </div>
 
-        <div class="project-card">
-            <h2 class="gradient-text">Nhiệm vụ 2: Tìm kiếm & Đánh giá thông tin (Tuần 2 & 7)</h2>
+        <!-- Project Content: Tuần 2 -->
+        <div id="tuan2" class="project-card tab-content">
+            <h2 class="gradient-text">Nhiệm vụ 2: Tìm kiếm & Đánh giá thông tin</h2>
             <p><strong>Mục tiêu:</strong> Thu thập tài liệu học thuật bằng các công cụ tìm kiếm nâng cao.<br>
             <strong>Quá trình:</strong> Sử dụng toán tử Boolean (AND, OR) tìm kiếm tài liệu về AI trong SCM, đồng thời kết hợp AI Consensus/Elicit tổng hợp nghiên cứu Graphene.</p>
-            <iframe src="https://docs.google.com/document/d/1Byd2KJ3eZu9h5PseV2Zatxcx0vbrbpgY/preview"></iframe>
+            <iframe src="https://docs.google.com/document/d/1Byd2KJ3eZu9h5PseV2Zatxcx0vbrbpgY/preview" loading="lazy"></iframe>
         </div>
 
-        <div class="project-card">
-            <h2 class="gradient-text">Nhiệm vụ 3: Viết Prompt hiệu quả (Tuần 3)</h2>
+        <!-- Project Content: Tuần 3 -->
+        <div id="tuan3" class="project-card tab-content">
+            <h2 class="gradient-text">Nhiệm vụ 3: Viết Prompt hiệu quả</h2>
             <p><strong>Mục tiêu:</strong> Giao tiếp tối ưu với LLMs (Large Language Models).<br>
             <strong>Quá trình:</strong> Áp dụng kỹ thuật Role-prompting và Chain-of-Thought giải thích công nghệ CRISPR/Cas9. So sánh sự khác biệt chất lượng đầu ra.</p>
-            <iframe src="https://docs.google.com/document/d/1XreSpiXFNa57EEnQNAOE0weXrKPGl4ln/preview"></iframe>
+            <iframe src="https://docs.google.com/document/d/1XreSpiXFNa57EEnQNAOE0weXrKPGl4ln/preview" loading="lazy"></iframe>
         </div>
 
-        <div class="project-card">
-            <h2 class="gradient-text">Nhiệm vụ 4: Hợp tác trực tuyến (Tuần 4)</h2>
+        <!-- Project Content: Tuần 4 -->
+        <div id="tuan4" class="project-card tab-content">
+            <h2 class="gradient-text">Nhiệm vụ 4: Hợp tác trực tuyến</h2>
             <p><strong>Mục tiêu:</strong> Tối ưu hóa hiệu suất làm việc nhóm từ xa.<br>
             <strong>Quá trình:</strong> Phân công nhiệm vụ trên Trello, lưu trữ tài nguyên qua Google Drive và họp định kỳ qua Google Meet để tạo video khoa học.</p>
-            <iframe src="https://docs.google.com/document/d/1Gx1QkbLMUtbaZOybcdcq4xPLVRJ8Fd_y/preview"></iframe>
+            <iframe src="https://docs.google.com/document/d/1Gx1QkbLMUtbaZOybcdcq4xPLVRJ8Fd_y/preview" loading="lazy"></iframe>
         </div>
 
-        <div class="project-card">
-            <h2 class="gradient-text">Nhiệm vụ 5: Sáng tạo nội dung với AI (Tuần 5)</h2>
+        <!-- Project Content: Tuần 5 -->
+        <div id="tuan5" class="project-card tab-content">
+            <h2 class="gradient-text">Nhiệm vụ 5: Sáng tạo nội dung với AI</h2>
             <p><strong>Mục tiêu:</strong> Tận dụng sức mạnh của AI tạo sinh trong thiết kế đa phương tiện.<br>
             <strong>Quá trình:</strong> Dùng Claude tạo nội dung, DALL-E 3 tạo hình ảnh và Canva thiết kế Infographic chủ đề "Xu hướng AI trong giáo dục".</p>
-            <iframe src="https://docs.google.com/document/d/1lLr3TA-ktBTNGjJ96ICZCYR43yJF6DnR/preview"></iframe>
+            <iframe src="https://docs.google.com/document/d/1lLr3TA-ktBTNGjJ96ICZCYR43yJF6DnR/preview" loading="lazy"></iframe>
         </div>
 
-        <div class="project-card">
-            <h2 class="gradient-text">Nhiệm vụ 6: Sử dụng AI có trách nhiệm (Tuần 6)</h2>
+        <!-- Project Content: Tuần 6 -->
+        <div id="tuan6" class="project-card tab-content">
+            <h2 class="gradient-text">Nhiệm vụ 6: Sử dụng AI có trách nhiệm</h2>
             <p><strong>Mục tiêu:</strong> Xây dựng bộ quy tắc đạo đức khi ứng dụng AI vào môi trường học thuật.<br>
             <strong>Quá trình:</strong> Phân tích ranh giới liêm chính, trích dẫn, và lập bảng nguyên tắc cá nhân. Sản phẩm bao gồm báo cáo và một Infographic đính kèm.</p>
-            <iframe src="https://docs.google.com/document/d/1f3fvzcRXO5r8yMRkEVO9dYSY22pgLlBl/preview"></iframe>
-           <iframe src="https://drive.google.com/file/d/1u3msn3wfCWD9Tz65nrmlCHVO8WkZoaj3/preview" style="height: 800px;"></iframe>
+            <iframe src="https://docs.google.com/document/d/1f3fvzcRXO5r8yMRkEVO9dYSY22pgLlBl/preview" loading="lazy"></iframe>
+            <iframe src="https://drive.google.com/file/d/1u3msn3wfCWD9Tz65nrmlCHVO8WkZoaj3/preview" style="height: 800px;" loading="lazy"></iframe>
         </div>
-        <div class="project-card">
-            <h2 class="gradient-text">Nhiệm vụ 7: Tổng quan Tài liệu Khoa học với AI (Tuần 7))</h2>
+
+        <!-- Project Content: Tuần 7 -->
+        <div id="tuan7" class="project-card tab-content">
+            <h2 class="gradient-text">Nhiệm vụ 7: Tổng quan Tài liệu Khoa học với AI</h2>
             <p><strong>Mục tiêu:</strong> Tối ưu hóa quy trình tìm kiếm, đánh giá và tổng hợp tài liệu nghiên cứu chuyên sâu bằng các công cụ Trí tuệ nhân tạo học thuật.<br>
             <strong>Quá trình:</strong> Sử dụng Consensus và Elicit để chắt lọc 5 bài báo chất lượng cao (chỉ số IF ≥ 3.0) về vật liệu Graphene từ 47 kết quả tìm kiếm. Lập bảng phân tích so sánh chi tiết các phương pháp, kết quả, hạn chế của từng nghiên cứu và dùng Google Scholar để xác minh chéo tính chính xác của trích dẫn.</p>
-            <iframe src="https://docs.google.com/document/d/1nOLrIkMZIa2Ukv5lXhMWeO0idyoCETci/preview" style="height: 800px;"></iframe>
+            <iframe src="https://docs.google.com/document/d/1nOLrIkMZIa2Ukv5lXhMWeO0idyoCETci/preview" style="height: 800px;" loading="lazy"></iframe>
+        </div>
     </div>
+
+    <!-- Script xử lý chức năng Tabs -->
+    <script>
+        function openTab(evt, tabName) {
+            // Lấy tất cả các phần tử có class "tab-content" và ẩn chúng đi
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active-tab");
+            }
+
+            // Lấy tất cả các phần tử có class "tab-btn" và xóa class "active"
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Hiển thị tab hiện tại và thêm class "active" vào nút đã click
+            document.getElementById(tabName).classList.add("active-tab");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
