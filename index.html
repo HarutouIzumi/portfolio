@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ | Digital Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #00b4d8; --dark: #2b2d42; --bg: #f8f9fa; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg); color: var(--dark); line-height: 1.6; padding-top: 70px; }
+        
+        /* Header chung */
+        .main-header { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 1000; display: flex; justify-content: space-between; padding: 15px 50px; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: var(--dark); }
+        .logo span { color: var(--primary); }
+        .nav-menu a { margin: 0 15px; text-decoration: none; color: var(--dark); font-weight: 600; transition: 0.3s; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--primary); }
+        
+        /* Banner rộng */
+        .hero { min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, #00f5d4, #00b4d8); color: white; padding: 40px 20px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .hero p { font-size: 1.2rem; margin-bottom: 20px; }
+        .line { width: 80px; height: 4px; background: #ffb703; border-radius: 2px; }
+
+        /* Nội dung giới thiệu */
+        .container { max-width: 1000px; margin: 50px auto; padding: 0 20px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); }
+        .highlight-box { background: var(--primary); color: white; padding: 40px; border-radius: 15px; text-align: center; }
+        .btn { display: inline-block; margin-top: 20px; padding: 10px 25px; background: #ffb703; color: var(--dark); text-decoration: none; font-weight: bold; border-radius: 25px; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <a href="index.html" class="logo">Quân<span>.Digital</span></a>
+        <nav class="nav-menu">
+            <a href="index.html" class="active">Giới thiệu</a>
+            <a href="projects.html">Dự án</a>
+            <a href="summary.html">Tổng kết</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Digital Portfolio</h1>
+        <p>Khám phá Không gian Số của Kiều Duy Mạnh Quân</p>
+        <div class="line"></div>
+    </section>
+
+    <div class="container">
+        <div class="card" style="margin-bottom: 30px;">
+            <h2>Về bản thân</h2>
+            <p>Mình là Kiều Duy Mạnh Quân (MSV: 25023371), sinh viên ngành Hệ thống thông tin thuộc khóa K70, Trường Đại học Công nghệ - ĐHQGHN (UET). Mình đam mê ứng dụng các công cụ trí tuệ nhân tạo để tối ưu hóa hiệu suất học tập và giải quyết vấn đề thực tiễn.</p>
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>Mục tiêu học tập</h3>
+                <p>Nắm vững tư duy tính toán, giải tích và lập trình. Ứng dụng thành thạo AI vào quy trình phân tích và thiết kế hệ thống.</p>
+            </div>
+            <div class="card">
+                <h3>Định hướng phát triển</h3>
+                <p>Trở thành kỹ sư Hệ thống thông tin, vận dụng dữ liệu và AI để thiết kế các phần mềm thông minh, đáp ứng nhu cầu thị trường.</p>
+            </div>
+        </div>
+        <div class="highlight-box">
+            <h2>Mục tiêu của Portfolio</h2>
+            <p>Lưu trữ và báo cáo quá trình thực hành môn "Nhập môn Công nghệ số và Ứng dụng AI". Đây là minh chứng cho năng lực tự học, quản lý dữ liệu và sử dụng AI có trách nhiệm.</p>
+            <a href="projects.html" class="btn">Xem các dự án số</a>
+        </div>
+    </div>
+</body>
+</html>

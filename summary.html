@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng Kết | Digital Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #00b4d8; --dark: #2b2d42; --bg: #f8f9fa; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg); color: var(--dark); line-height: 1.6; padding-top: 70px; }
+        
+        .main-header { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 1000; display: flex; justify-content: space-between; padding: 15px 50px; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: var(--dark); }
+        .logo span { color: var(--primary); }
+        .nav-menu a { margin: 0 15px; text-decoration: none; color: var(--dark); font-weight: 600; transition: 0.3s; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--primary); }
+
+        .container { max-width: 800px; margin: 50px auto; padding: 0 20px; }
+        .card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        h1 { color: var(--dark); text-align: center; margin-bottom: 30px; }
+        h3 { margin-top: 20px; color: var(--primary); border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        ul { margin-left: 20px; margin-top: 10px; }
+        li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <a href="index.html" class="logo">Quân<span>.Digital</span></a>
+        <nav class="nav-menu">
+            <a href="index.html">Giới thiệu</a>
+            <a href="projects.html">Dự án</a>
+            <a href="summary.html" class="active">Tổng kết</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Nhìn Lại Hành Trình</h1>
+        
+        <div class="card">
+            <h3>Trải nghiệm & Cảm nhận cá nhân</h3>
+            <p>Xây dựng Portfolio không chỉ đơn thuần là việc nộp bài, mà là quá trình hệ thống hóa toàn bộ kiến thức kỹ năng số. Những khó khăn ban đầu về việc phân biệt các công cụ AI hay cách tổ chức file dữ liệu đã trở thành động lực để mình tự nghiên cứu và hoàn thiện tác phong làm việc của bản thân.</p>
+            
+            <h3>Kiến thức đọng lại</h3>
+            <ul>
+                <li><strong>Kỹ năng Prompt Engineering:</strong> Hiểu rõ cách thức hoạt động của LLM để xây dựng câu lệnh (prompt) chính xác, khai thác tối đa sức mạnh AI mà không rơi vào lỗi ảo giác (hallucination).</li>
+                <li><strong>Khảo cứu chuyên sâu:</strong> Kỹ năng chắt lọc thông tin đa nguồn và sử dụng các toán tử Boolean hiệu quả.</li>
+                <li><strong>Đạo đức học thuật:</strong> Tư duy phản biện và khả năng kiểm chứng số liệu độc lập khi dùng AI tạo sinh.</li>
+            </ul>
+
+            <h3>Tầm nhìn ứng dụng tương lai</h3>
+            <p>Bước vào chuyên ngành Hệ thống thông tin, mình sẽ tiếp tục ứng dụng linh hoạt các nền tảng hợp tác đám mây vào làm đồ án. Việc giữ thái độ sử dụng "AI có trách nhiệm" — biến công nghệ thành đòn bẩy chứ không phải người làm hộ — sẽ là nguyên tắc cốt lõi giúp mình tiến xa hơn trên con đường trở thành Kỹ sư phần mềm vững chuyên môn, sáng đạo đức.</p>
+        </div>
+    </div>
+</body>
+</html>
