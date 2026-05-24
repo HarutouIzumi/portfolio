@@ -18,13 +18,11 @@
                     colors: {
                         'brand-blue': '#2563eb',   
                         'soft-blue': '#dbeafe',    
-                        'electric-blue': '#3b82f6',
                         'deep-navy': '#1e3a8a',
                         'accent-yellow': '#fbbf24',
                     },
                     boxShadow: {
                         'bold': '8px 8px 0px 0px #1e3a8a',
-                        'bold-hover': '3px 3px 0px 0px #1e3a8a',
                         'bold-sm': '4px 4px 0px 0px #1e3a8a',
                     }
                 }
@@ -32,45 +30,16 @@
         }
     </script>
     <style>
-        body {
-            background-color: #f8fafc;
-            color: #1e3a8a;
-            overflow-x: hidden;
-        }
-
-        /* Hoạt ảnh lơ lửng */
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-20px) rotate(-3deg); }
-        }
+        body { background-color: #f8fafc; color: #1e3a8a; overflow-x: hidden; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-20px) rotate(-3deg); } }
         .animate-float { animation: float 6s ease-in-out infinite; }
-
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
-        }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
         .animate-wiggle { animation: wiggle 3s ease-in-out infinite; }
-
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 12px; }
         ::-webkit-scrollbar-track { background: #dbeafe; }
-        ::-webkit-scrollbar-thumb { 
-            background: #2563eb; 
-            border: 3px solid #dbeafe; 
-            border-radius: 10px; 
-        }
-
-        .neo-card {
-            background: white;
-            border: 4px solid #1e3a8a;
-            border-radius: 32px;
-            transition: all 0.2s ease;
-        }
-
-        /* Hiệu ứng gạch chân zic-zac cho tiêu đề nhỏ */
-        .underline-zigzag {
-            text-decoration: underline cubic-bezier(0.4, 0, 0.2, 1) wavy #fbbf24 4px;
-        }
+        ::-webkit-scrollbar-thumb { background: #2563eb; border: 3px solid #dbeafe; border-radius: 10px; }
+        .neo-card { background: white; border: 4px solid #1e3a8a; border-radius: 32px; transition: all 0.2s ease; }
+        .underline-zigzag { text-decoration: underline cubic-bezier(0.4, 0, 0.2, 1) wavy #fbbf24 4px; }
     </style>
 </head>
 <body class="selection:bg-brand-blue selection:text-white">
@@ -99,7 +68,7 @@
                 <span class="absolute -bottom-1 left-0 w-full h-1 bg-brand-blue"></span>
             </a>
         </nav>
-        <button class="bg-accent-yellow border-2 border-deep-navy px-5 py-2 font-black rounded-xl shadow-bold-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+        <button onclick="alert('Chức năng Chatbot AI đang được Quân phát triển nhé! 🤖')" class="bg-accent-yellow border-2 border-deep-navy px-5 py-2 font-black rounded-xl shadow-bold-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all cursor-pointer">
             HỎI AI? 🤖
         </button>
     </header>
@@ -209,15 +178,9 @@
                 <p class="font-bold text-slate-500">© 2026 UET Student Portfolio</p>
             </div>
             <div class="flex gap-4">
-                <a href="#" class="w-12 h-12 neo-card flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors hover:-translate-y-1 shadow-bold-sm">
-                    <i data-lucide="github"></i>
-                </a>
-                <a href="#" class="w-12 h-12 neo-card flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors hover:-translate-y-1 shadow-bold-sm">
-                    <i data-lucide="facebook"></i>
-                </a>
-                <a href="#" class="w-12 h-12 neo-card flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors hover:-translate-y-1 shadow-bold-sm">
-                    <i data-lucide="mail"></i>
-                </a>
+                <a href="javascript:void(0)" class="w-12 h-12 neo-card flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors hover:-translate-y-1 shadow-bold-sm"><i data-lucide="github"></i></a>
+                <a href="javascript:void(0)" class="w-12 h-12 neo-card flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors hover:-translate-y-1 shadow-bold-sm"><i data-lucide="facebook"></i></a>
+                <a href="javascript:void(0)" class="w-12 h-12 neo-card flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors hover:-translate-y-1 shadow-bold-sm"><i data-lucide="mail"></i></a>
             </div>
         </div>
     </footer>
@@ -227,14 +190,3 @@
     </script>
 </body>
 </html>
-
-
-Cuối cùng là file **Tổng kết hành trình** (`summary.html`) đã được khoác lên mình bộ áo Neo-brutalism cá tính và dễ thương:
-
-1.  **Thiết kế Nhãn dán (Sticker Style):** Mình đã thêm các label như "MY THOUGHTS 💭" hay "Kỹ sư phần mềm tương lai ✨" với góc xoay ngẫu nhiên, tạo cảm giác như Quân đang dán những miếng sticker lên cuốn sổ tay số của mình.
-2.  **Cảm nhận Speeech Bubble:** Phần trích dẫn cảm nhận cá nhân được bọc trong một khối bo góc lớn với viền nét đứt, làm nổi bật lên suy nghĩ của Quân một cách đầy nghệ thuật.
-3.  **Checklist Kiến thức:** Thay vì danh sách liệt kê nhàm chán, mình sử dụng các khối checklist có icon `check` nảy lên khi hover, kết hợp với các tiêu đề phụ màu Xanh Dương đậm (`brand-blue`) rất dễ đọc.
-4.  **Tầm nhìn Future-Dark:** Phần "Tầm nhìn tương lai" được sử dụng nền màu Navy đậm (`deep-navy`) tạo sự tương phản mạnh, thể hiện sự quyết tâm và chuyên nghiệp khi bước vào chuyên ngành Hệ thống thông tin.
-5.  **Hoạt ảnh & Trang trí:** Các icon Lucide như `lightbulb`, `rocket`, `compass` được sử dụng xuyên suốt để dẫn dắt thị giác. Hoạt ảnh lơ lửng của các emoji nền (🎓, ✅, 📜) giúp trang tổng kết không bị khô khan.
-
-Toàn bộ bộ 3 file của Quân bây giờ đã hoàn toàn đồng nhất về phong cách **Cá tính - Hiện đại - Dễ thương**. Quân có thể chạy thử cả 3 file để thấy sự kết nối tuyệt vời này nhé! Chúc Quân có một sản phẩm Portfolio thật ấn tượng!
