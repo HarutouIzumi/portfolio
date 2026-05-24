@@ -1,149 +1,211 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Chủ | Digital Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Kiều Duy Mạnh Quân | Digital Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Quicksand', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-blue': '#2563eb',   /* Xanh dương đậm cá tính */
+                        'soft-blue': '#dbeafe',    /* Xanh dương nhạt dễ thương */
+                        'electric-blue': '#3b82f6',
+                        'deep-navy': '#1e3a8a',
+                        'accent-yellow': '#fbbf24',
+                    },
+                    boxShadow: {
+                        'bold': '8px 8px 0px 0px #1e3a8a',
+                        'bold-hover': '3px 3px 0px 0px #1e3a8a',
+                        'bold-sm': '4px 4px 0px 0px #1e3a8a',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root { 
-            --dark: #2b2d42; 
-            /* Định nghĩa các dải gradient */
-            --grad-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --grad-hero: linear-gradient(-45deg, #00b4d8, #7b2cbf, #00f5d4, #023e8a);
-            --grad-text: linear-gradient(90deg, #00b4d8, #7b2cbf);
-            --grad-btn: linear-gradient(45deg, #ffb703, #fb8500);
-            --grad-highlight: linear-gradient(135deg, #7b2cbf, #00b4d8);
-            --glass: rgba(255, 255, 255, 0.7);
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        
-        body { 
-            background: var(--grad-bg); 
-            background-attachment: fixed;
-            color: var(--dark); 
-            line-height: 1.6; 
-            padding-top: 70px; 
-        }
-        
-        /* Hiệu ứng chữ gradient */
-        .gradient-text {
-            background: var(--grad-text);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
+        body {
+            background-color: #f8fafc;
+            color: #1e3a8a;
+            overflow-x: hidden;
         }
 
-        /* Header chung (Glassmorphism) */
-        .main-header { 
-            position: fixed; top: 0; width: 100%; 
-            background: rgba(255, 255, 255, 0.8); 
-            backdrop-filter: blur(15px); 
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            z-index: 1000; display: flex; justify-content: space-between; padding: 15px 50px; align-items: center; 
+        /* Hoạt ảnh lơ lửng cho các icon trang trí */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-20px) rotate(5deg); }
         }
-        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: var(--dark); }
-        .logo span { background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-menu a { margin: 0 15px; text-decoration: none; color: var(--dark); font-weight: 600; transition: 0.3s; }
-        .nav-menu a:hover, .nav-menu a.active { color: transparent; background: var(--grad-text); -webkit-background-clip: text; }
-        
-        /* Banner rộng (Animated Gradient) */
-        .hero { 
-            min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; 
-            background: var(--grad-hero); 
-            background-size: 400% 400%;
-            animation: gradientBG 12s ease infinite;
-            color: white; padding: 40px 20px; 
-        }
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .hero h1 { font-size: 3rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .hero p { font-size: 1.2rem; margin-bottom: 20px; text-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .line { width: 80px; height: 4px; background: var(--grad-btn); border-radius: 2px; }
+        .animate-float { animation: float 5s ease-in-out infinite; }
 
-        /* Nội dung giới thiệu */
-        .container { max-width: 1000px; margin: 50px auto; padding: 0 20px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
-        
-        /* Card (Glassmorphism) */
-        .card { 
-            background: var(--glass); 
-            padding: 30px; border-radius: 15px; 
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1); 
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.1); opacity: 0.4; }
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15); 
-        }
-        .card h2, .card h3 { margin-bottom: 15px; }
+        .animate-pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
 
-        /* Highlight Box Gradient */
-        .highlight-box { 
-            background: var(--grad-highlight); 
-            color: white; padding: 40px; border-radius: 15px; text-align: center; 
-            box-shadow: 0 10px 30px rgba(123, 44, 191, 0.3);
+        /* Custom Scrollbar Xanh dương */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: #dbeafe; }
+        ::-webkit-scrollbar-thumb { 
+            background: #2563eb; 
+            border: 3px solid #dbeafe; 
+            border-radius: 10px; 
         }
-        .highlight-box h2 { margin-bottom: 15px; }
-        
-        /* Button Gradient */
-        .btn { 
-            display: inline-block; margin-top: 20px; padding: 12px 30px; 
-            background: var(--grad-btn); 
-            color: white; text-decoration: none; font-weight: bold; border-radius: 30px; 
-            box-shadow: 0 4px 15px rgba(251, 133, 0, 0.4);
-            transition: 0.3s;
-            border: none;
+
+        .neo-card {
+            background: white;
+            border: 4px solid #1e3a8a;
+            border-radius: 24px;
+            transition: all 0.2s ease;
         }
-        .btn:hover {
-            box-shadow: 0 6px 20px rgba(251, 133, 0, 0.6);
-            transform: scale(1.05);
+        .neo-card:hover {
+            transform: translate(-2px, -2px);
         }
     </style>
 </head>
-<body>
-    <header class="main-header">
-        <a href="index.html" class="logo">Digital<span> Portfolio</span></a>
-        <nav class="nav-menu">
-            <a href="index.html" class="active">Giới thiệu</a>
-            <a href="projects.html">Dự án</a>
-            <a href="summary.html">Tổng kết</a>
+<body class="selection:bg-brand-blue selection:text-white">
+
+    <div class="fixed top-20 left-10 text-6xl opacity-20 -z-10 animate-float" style="animation-delay: 0s;">☁️</div>
+    <div class="fixed top-40 right-20 text-5xl opacity-20 -z-10 animate-float" style="animation-delay: 1s;">✨</div>
+    <div class="fixed bottom-20 left-1/4 text-6xl opacity-20 -z-10 animate-float" style="animation-delay: 2s;">💎</div>
+    <div class="fixed bottom-40 right-10 text-7xl opacity-10 -z-10 animate-pulse-soft">🐳</div>
+
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b-4 border-deep-navy py-4 px-6 md:px-12 flex justify-between items-center">
+        <a href="#" class="font-display font-black text-2xl tracking-tighter text-deep-navy flex items-center gap-2">
+            <span class="bg-brand-blue text-white px-2 py-0.5 rounded-lg shadow-bold-sm italic">DQ</span>
+            <span>PORTFOLIO</span>
+        </a>
+        <nav class="hidden md:flex gap-8 font-bold text-deep-navy">
+            <a href="#" class="hover:text-brand-blue transition-colors relative group">
+                Giới thiệu
+                <span class="absolute -bottom-1 left-0 w-0 h-1 bg-brand-blue transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#" class="hover:text-brand-blue transition-colors relative group">
+                Dự án
+                <span class="absolute -bottom-1 left-0 w-0 h-1 bg-brand-blue transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#" class="hover:text-brand-blue transition-colors relative group">
+                Tổng kết
+                <span class="absolute -bottom-1 left-0 w-0 h-1 bg-brand-blue transition-all group-hover:w-full"></span>
+            </a>
         </nav>
+        <button class="bg-accent-yellow border-2 border-deep-navy px-5 py-2 font-black rounded-xl shadow-bold-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+            HỎI AI? 🤖
+        </button>
     </header>
 
-    <section class="hero">
-        <h1>Digital Portfolio</h1>
-        <p>Khám phá Không gian Số của Kiều Duy Mạnh Quân</p>
-        <div class="line"></div>
-    </section>
+    <main class="container mx-auto px-6 py-12 max-w-5xl space-y-24">
+        
+        <section class="relative text-center space-y-6 py-10">
+            <div class="inline-block bg-soft-blue border-2 border-brand-blue px-6 py-2 rounded-full font-bold text-brand-blue mb-4 animate-bounce">
+                🚀 Welcome to my Digital Space!
+            </div>
+            <h1 class="font-display font-black text-6xl md:text-8xl text-deep-navy leading-none">
+                DIGITAL <br> <span class="text-brand-blue italic">PORTFOLIO</span>
+            </h1>
+            <p class="text-xl font-medium max-w-2xl mx-auto text-slate-600">
+                Khám phá Không gian Số của <span class="text-deep-navy font-bold underline decoration-accent-yellow decoration-4">Kiều Duy Mạnh Quân</span> - Sinh viên Hệ thống thông tin UET.
+            </p>
+            <div class="flex justify-center pt-6">
+                <div class="w-24 h-2 bg-brand-blue rounded-full shadow-bold-sm"></div>
+            </div>
+        </section>
 
-    <div class="container">
-        <div class="card" style="margin-bottom: 30px;">
-            <h2 class="gradient-text">❤️Về bản thân</h2>
-            <p>Mình là Kiều Duy Mạnh Quân (MSV: 25023371), sinh viên ngành Hệ thống thông tin thuộc khóa K70, Trường Đại học Công nghệ - ĐHQGHN (UET). Mình đam mê ứng dụng các công cụ trí tuệ nhân tạo để tối ưu hóa hiệu suất học tập và giải quyết vấn đề thực tiễn.</p>
-        </div>
-        <div class="grid-2">
-            <div class="card">
-                <h3 class="gradient-text">👾Mục tiêu học tập</h3>
-                <p>Nắm vững tư duy tính toán, giải tích và lập trình. Ứng dụng thành thạo AI vào quy trình phân tích và thiết kế hệ thống.</p>
+        <section class="grid md:grid-cols-5 gap-8 items-center">
+            <div class="md:col-span-2 flex justify-center">
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-brand-blue rounded-3xl border-4 border-deep-navy shadow-bold rotate-6 group-hover:rotate-0 transition-transform"></div>
+                    <div class="relative bg-white border-4 border-deep-navy rounded-3xl p-4 overflow-hidden">
+                        <img src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Quân&backgroundColor=dbeafe" alt="Avatar AI" class="w-64 h-64">
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <h3 class="gradient-text">🚀Định hướng phát triển</h3>
-                <p>Trở thành kỹ sư Hệ thống thông tin, vận dụng dữ liệu và AI để thiết kế các phần mềm thông minh, đáp ứng nhu cầu thị trường.</p>
+            <div class="md:col-span-3 neo-card p-8 shadow-bold">
+                <div class="flex items-center gap-3 mb-4">
+                    <i data-lucide="heart" class="text-red-500 fill-red-500 animate-pulse"></i>
+                    <h2 class="font-display font-black text-3xl">Về bản thân</h2>
+                </div>
+                <div class="space-y-4 font-medium text-lg leading-relaxed text-slate-700">
+                    <p>Mình là <span class="font-bold text-brand-blue">Kiều Duy Mạnh Quân</span> (MSV: 25023371).</p>
+                    <p>Hiện đang là sinh viên khóa K70, ngành Hệ thống thông tin tại Trường Đại học Công nghệ - ĐHQGHN (UET).</p>
+                    <p class="bg-soft-blue p-4 rounded-2xl border-2 border-brand-blue italic">
+                        "Đam mê ứng dụng các công cụ trí tuệ nhân tạo để tối ưu hóa hiệu suất học tập và giải quyết vấn đề thực tiễn."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-8">
+            <div class="neo-card p-8 shadow-bold bg-white group">
+                <div class="w-16 h-16 bg-brand-blue border-4 border-deep-navy rounded-2xl flex items-center justify-center mb-6 shadow-bold-sm group-hover:rotate-12 transition-transform">
+                    <i data-lucide="target" class="text-white w-8 h-8"></i>
+                </div>
+                <h3 class="font-display font-black text-2xl mb-4 uppercase">Mục tiêu học tập</h3>
+                <p class="text-lg font-medium text-slate-600">
+                    Nắm vững tư duy tính toán, giải tích và lập trình. Ứng dụng thành thạo AI vào quy trình phân tích và thiết kế hệ thống.
+                </p>
+            </div>
+            <div class="neo-card p-8 shadow-bold bg-soft-blue group">
+                <div class="w-16 h-16 bg-white border-4 border-deep-navy rounded-2xl flex items-center justify-center mb-6 shadow-bold-sm group-hover:-rotate-12 transition-transform">
+                    <i data-lucide="rocket" class="text-brand-blue w-8 h-8"></i>
+                </div>
+                <h3 class="font-display font-black text-2xl mb-4 uppercase">Định hướng phát triển</h3>
+                <p class="text-lg font-medium text-slate-700">
+                    Trở thành kỹ sư Hệ thống thông tin, vận dụng dữ liệu và AI để thiết kế các phần mềm thông minh, đáp ứng nhu cầu thị trường.
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-brand-blue border-4 border-deep-navy rounded-[40px] p-10 shadow-bold text-white relative overflow-hidden group">
+            <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-150 transition-transform">
+                <i data-lucide="shapes" class="w-40 h-40"></i>
+            </div>
+            <div class="relative z-10 space-y-6 text-center md:text-left">
+                <h2 class="font-display font-black text-4xl">Mục tiêu của Portfolio</h2>
+                <p class="text-xl font-medium text-blue-100 max-w-3xl">
+                    Lưu trữ và báo cáo quá trình thực hành môn "Nhập môn Công nghệ số và Ứng dụng AI". Đây là minh chứng cho năng lực tự học, quản lý dữ liệu và sử dụng AI có trách nhiệm.
+                </p>
+                <div class="pt-4">
+                    <a href="#" class="inline-flex items-center gap-3 bg-accent-yellow text-deep-navy font-black py-4 px-10 rounded-2xl border-4 border-deep-navy shadow-[6px_6px_0px_0px_#1e3a8a] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all text-xl">
+                        XEM DỰ ÁN SỐ <i data-lucide="chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t-4 border-deep-navy py-12">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <p class="font-black text-xl text-deep-navy">Mạnh Quân DQ</p>
+                <p class="font-bold text-slate-500">© 2026 UET Student Portfolio</p>
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="w-12 h-12 neo-card flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors">
+                    <i data-lucide="github"></i>
+                </a>
+                <a href="#" class="w-12 h-12 neo-card flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors">
+                    <i data-lucide="facebook"></i>
+                </a>
+                <a href="#" class="w-12 h-12 neo-card flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors">
+                    <i data-lucide="mail"></i>
+                </a>
             </div>
         </div>
-        <div class="highlight-box">
-            <h2>Mục tiêu của Portfolio</h2>
-            <p>Lưu trữ và báo cáo quá trình thực hành môn "Nhập môn Công nghệ số và Ứng dụng AI". Đây là minh chứng cho năng lực tự học, quản lý dữ liệu và sử dụng AI có trách nhiệm.</p>
-            <a href="projects.html" class="btn">Xem các dự án số</a>
-        </div>
-    </div>
+    </footer>
+
+    <script>
+        // Khởi tạo icons
+        lucide.createIcons();
+    </script>
 </body>
 </html>
