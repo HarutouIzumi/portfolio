@@ -1,259 +1,399 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dự Án | Digital Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Quicksand', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-blue': '#2563eb',   /* Xanh dương đậm cá tính */
+                        'soft-blue': '#dbeafe',    /* Xanh dương nhạt dễ thương */
+                        'electric-blue': '#3b82f6',
+                        'deep-navy': '#1e3a8a',
+                        'accent-yellow': '#fbbf24',
+                    },
+                    boxShadow: {
+                        'bold': '8px 8px 0px 0px #1e3a8a',
+                        'bold-hover': '3px 3px 0px 0px #1e3a8a',
+                        'bold-sm': '4px 4px 0px 0px #1e3a8a',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root { 
-            --dark: #2b2d42; 
-            /* Đồng bộ các dải màu gradient từ trang chủ */
-            --grad-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --grad-text: linear-gradient(90deg, #00b4d8, #7b2cbf);
-            --grad-border: #7b2cbf;
-            --glass: rgba(255, 255, 255, 0.7);
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        
-        body { 
-            background: var(--grad-bg); 
-            background-attachment: fixed;
-            color: var(--dark); 
-            line-height: 1.6; 
-            padding-top: 90px; 
-        }
-        
-        /* Hiệu ứng chữ gradient */
-        .gradient-text {
-            background: var(--grad-text);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
+        body {
+            background-color: #f8fafc;
+            color: #1e3a8a;
+            overflow-x: hidden;
         }
 
-        /* Header chung (Glassmorphism) */
-        .main-header { 
-            position: fixed; top: 0; width: 100%; 
-            background: rgba(255, 255, 255, 0.8); 
-            backdrop-filter: blur(15px); 
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            z-index: 1000; display: flex; justify-content: space-between; padding: 15px 50px; align-items: center; 
+        /* Hoạt ảnh trang trí nền */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-20px) rotate(5deg); }
         }
-        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: var(--dark); }
-        .logo span { background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-menu a { margin: 0 15px; text-decoration: none; color: var(--dark); font-weight: 600; transition: 0.3s; }
-        .nav-menu a:hover, .nav-menu a.active { color: transparent; background: var(--grad-text); -webkit-background-clip: text; }
+        .animate-float { animation: float 5s ease-in-out infinite; }
 
-        /* Khung chứa nội dung */
-        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
-        
-        .page-title {
-            text-align: center; 
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            font-weight: 700;
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        .animate-wiggle { animation: wiggle 2.5s ease-in-out infinite; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: #dbeafe; border-left: 2px solid #1e3a8a; }
+        ::-webkit-scrollbar-thumb { 
+            background: #2563eb; 
+            border: 2px solid #1e3a8a; 
+            border-radius: 10px; 
         }
 
-        /* =========================================
-           SUB-NAVIGATION BAR (TABS)
-           ========================================= */
-        .sub-nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
-        .tab-btn {
-            padding: 10px 24px;
-            border: 2px solid var(--grad-border);
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(5px);
-            border-radius: 30px;
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .tab-btn:hover {
-            background: var(--glass);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(123, 44, 191, 0.2);
-        }
-
-        .tab-btn.active {
-            background-image: var(--grad-text);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 5px 15px rgba(0, 180, 216, 0.4);
-        }
-
-        /* Ẩn các project card mặc định */
+        /* Logic cho Tabs */
         .tab-content {
             display: none;
-            animation: fadeEffect 0.5s ease-in-out;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
-
-        /* Hiển thị project card đang được chọn */
         .tab-content.active-tab {
             display: block;
         }
 
-        /* Hiệu ứng chuyển tab mượt mà */
-        @keyframes fadeEffect {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Project Card (Glassmorphism cải tiến) */
-        .project-card { 
-            background: var(--glass); 
-            padding: 35px; border-radius: 20px; 
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.08); 
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-left: 6px solid var(--grad-border);
-            margin-bottom: 45px; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Custom style cho Nút Tab phong cách Neo-brutalism */
+        .tab-btn {
+            background-color: white;
+            color: #1e3a8a;
+            border: 3px solid #1e3a8a;
+            box-shadow: 4px 4px 0px 0px #1e3a8a;
+            transition: all 0.2s ease;
         }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15);
+        .tab-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #1e3a8a;
         }
-        .project-card h2 { 
-            font-size: 1.4rem;
-            margin-bottom: 15px; 
-            font-weight: 700;
-        }
-        .project-card p { 
-            margin-bottom: 20px; 
-            font-size: 0.98rem; 
-            color: #4a4e69;
-        }
-        .project-card p strong {
-            color: var(--dark);
-        }
-        
-        /* Khung hiển thị tài liệu */
-        iframe { 
-            width: 100%; 
-            height: 600px; 
-            border: none; 
-            border-radius: 12px; 
-            background: rgba(255, 255, 255, 0.5); 
-            margin-top: 15px; 
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05), 0 4px 15px rgba(0,0,0,0.02);
+        /* Trạng thái Active: Bấm lún xuống và đổi màu */
+        .tab-btn.active {
+            background-color: #fbbf24; /* Vàng nổi bật */
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px 0px #1e3a8a;
         }
     </style>
 </head>
-<body>
-    <header class="main-header">
-        <a href="index.html" class="logo">Digital<span> Portfolio</span></a>
-        <nav class="nav-menu">
-            <a href="index.html">Giới thiệu</a>
-            <a href="projects.html" class="active">Dự án</a>
-            <a href="summary.html">Tổng kết</a>
+<body class="selection:bg-brand-blue selection:text-white">
+
+    <!-- Trang trí nền: Emojis chủ đề công nghệ/đại dương lơ lửng -->
+    <div class="fixed top-32 left-10 text-6xl opacity-20 -z-10 animate-float" style="animation-delay: 0s;">🚀</div>
+    <div class="fixed top-1/2 right-10 text-5xl opacity-20 -z-10 animate-wiggle" style="animation-delay: 1s;">💻</div>
+    <div class="fixed bottom-20 left-1/4 text-6xl opacity-20 -z-10 animate-float" style="animation-delay: 2s;">💡</div>
+    <div class="fixed bottom-40 right-1/4 text-7xl opacity-10 -z-10 animate-float" style="animation-delay: 1.5s;">🧩</div>
+
+    <!-- Header Đồng Bộ -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b-4 border-deep-navy py-4 px-6 md:px-12 flex justify-between items-center">
+        <a href="index.html" class="font-display font-black text-2xl tracking-tighter text-deep-navy flex items-center gap-2">
+            <span class="bg-brand-blue text-white px-2 py-0.5 rounded-lg shadow-bold-sm italic">DQ</span>
+            <span>PORTFOLIO</span>
+        </a>
+        <nav class="hidden md:flex gap-8 font-bold text-deep-navy">
+            <a href="index.html" class="hover:text-brand-blue transition-colors relative group">
+                Giới thiệu
+                <span class="absolute -bottom-1 left-0 w-0 h-1 bg-brand-blue transition-all group-hover:w-full"></span>
+            </a>
+            <a href="projects.html" class="text-brand-blue relative group">
+                Dự án
+                <span class="absolute -bottom-1 left-0 w-full h-1 bg-brand-blue"></span>
+            </a>
+            <a href="summary.html" class="hover:text-brand-blue transition-colors relative group">
+                Tổng kết
+                <span class="absolute -bottom-1 left-0 w-0 h-1 bg-brand-blue transition-all group-hover:w-full"></span>
+            </a>
         </nav>
+        <button class="bg-accent-yellow border-2 border-deep-navy px-5 py-2 font-black rounded-xl shadow-bold-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+            HỎI AI? 🤖
+        </button>
     </header>
 
-    <div class="container">
-        <h1 class="page-title gradient-text">Các Dự Án Thành Phần</h1>
-
-        <!-- Sub Navigation Bar -->
-        <div class="sub-nav">
-            <button class="tab-btn active" onclick="openTab(event, 'tuan1')">Tuần 1</button>
-            <button class="tab-btn" onclick="openTab(event, 'tuan2')">Tuần 2</button>
-            <button class="tab-btn" onclick="openTab(event, 'tuan3')">Tuần 3</button>
-            <button class="tab-btn" onclick="openTab(event, 'tuan4')">Tuần 4</button>
-            <button class="tab-btn" onclick="openTab(event, 'tuan5')">Tuần 5</button>
-            <button class="tab-btn" onclick="openTab(event, 'tuan6')">Tuần 6</button>
-            <button class="tab-btn" onclick="openTab(event, 'tuan7')">Tuần 7</button>
+    <main class="container mx-auto px-6 py-12 max-w-5xl">
+        
+        <!-- Tiêu đề trang -->
+        <div class="text-center mb-12 relative">
+            <div class="inline-block bg-soft-blue border-4 border-deep-navy px-8 py-4 rounded-3xl shadow-bold transform -rotate-2 hover:rotate-0 transition-transform">
+                <h1 class="font-display font-black text-4xl md:text-5xl text-deep-navy">
+                    CÁC DỰ ÁN <span class="text-brand-blue">THÀNH PHẦN</span> 📂
+                </h1>
+            </div>
         </div>
 
-        <!-- Project Content: Tuần 1 -->
-        <div id="tuan1" class="project-card tab-content active-tab">
-            <h2 class="gradient-text">Nhiệm vụ 1: Thao tác cơ bản với tệp tin</h2>
-            <p><strong>Mục tiêu:</strong> Làm chủ các thao tác quản lý dữ liệu trên môi trường máy tính.<br>
-            <strong>Quá trình:</strong> Thiết lập cấu trúc thư mục logic, sử dụng phím tắt, đổi tên và sắp xếp tập tin gọn gàng.</p>
-            <iframe src="https://drive.google.com/file/d/1f6WgnxPNUhk8yi9fmyXUzhRlb1WQ4OWp/preview" loading="lazy"></iframe>
+        <!-- Sub Navigation Bar (Tabs) -->
+        <div class="flex justify-center flex-wrap gap-4 mb-12">
+            <button class="tab-btn active px-6 py-3 rounded-xl font-bold text-lg flex items-center gap-2" onclick="openTab(event, 'tuan1')">
+                Tuần 1 📁
+            </button>
+            <button class="tab-btn px-6 py-3 rounded-xl font-bold text-lg flex items-center gap-2" onclick="openTab(event, 'tuan2')">
+                Tuần 2 🔎
+            </button>
+            <button class="tab-btn px-6 py-3 rounded-xl font-bold text-lg flex items-center gap-2" onclick="openTab(event, 'tuan3')">
+                Tuần 3 🤖
+            </button>
+            <button class="tab-btn px-6 py-3 rounded-xl font-bold text-lg flex items-center gap-2" onclick="openTab(event, 'tuan4')">
+                Tuần 4 🤝
+            </button>
+            <button class="tab-btn px-6 py-3 rounded-xl font-bold text-lg flex items-center gap-2" onclick="openTab(event, 'tuan5')">
+                Tuần 5 🎨
+            </button>
+            <button class="tab-btn px-6 py-3 rounded-xl font-bold text-lg flex items-center gap-2" onclick="openTab(event, 'tuan6')">
+                Tuần 6 ⚖️
+            </button>
+            <button class="tab-btn px-6 py-3 rounded-xl font-bold text-lg flex items-center gap-2" onclick="openTab(event, 'tuan7')">
+                Tuần 7 📚
+            </button>
         </div>
 
-        <!-- Project Content: Tuần 2 -->
-        <div id="tuan2" class="project-card tab-content">
-            <h2 class="gradient-text">Nhiệm vụ 2: Tìm kiếm & Đánh giá thông tin</h2>
-            <p><strong>Mục tiêu:</strong> Thu thập tài liệu học thuật bằng các công cụ tìm kiếm nâng cao.<br>
-            <strong>Quá trình:</strong> Sử dụng toán tử Boolean (AND, OR) tìm kiếm tài liệu về AI trong SCM, đồng thời kết hợp AI Consensus/Elicit tổng hợp nghiên cứu Graphene.</p>
-            <iframe src="https://docs.google.com/document/d/1Byd2KJ3eZu9h5PseV2Zatxcx0vbrbpgY/preview" loading="lazy"></iframe>
-        </div>
+        <!-- Vùng chứa nội dung dự án -->
+        <div class="relative">
+            <!-- Project Content: Tuần 1 -->
+            <div id="tuan1" class="tab-content active-tab bg-white border-4 border-deep-navy rounded-3xl p-8 md:p-10 shadow-bold">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-brand-blue text-white p-3 rounded-2xl border-4 border-deep-navy shadow-bold-sm rotate-6">
+                        <i data-lucide="folder-open" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="font-display font-black text-3xl text-deep-navy">Nhiệm vụ 1: Thao tác cơ bản với tệp tin</h2>
+                </div>
+                <div class="bg-soft-blue border-2 border-brand-blue rounded-2xl p-6 mb-8 text-lg font-medium text-slate-700">
+                    <p class="mb-2"><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block mb-1 shadow-sm">🎯 Mục tiêu:</span> Làm chủ các thao tác quản lý dữ liệu trên môi trường máy tính.</p>
+                    <p><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block shadow-sm">⚙️ Quá trình:</span> Thiết lập cấu trúc thư mục logic, sử dụng phím tắt, đổi tên và sắp xếp tập tin gọn gàng.</p>
+                </div>
+                <!-- Browser Window Mockup cho Iframe -->
+                <div class="border-4 border-deep-navy rounded-2xl overflow-hidden shadow-bold-sm bg-white">
+                    <div class="bg-soft-blue border-b-4 border-deep-navy px-4 py-3 flex gap-2 items-center">
+                        <div class="w-4 h-4 rounded-full bg-red-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-green-400 border-2 border-deep-navy"></div>
+                        <div class="ml-4 bg-white border-2 border-deep-navy rounded-full px-4 py-0.5 text-xs font-bold text-deep-navy opacity-70 flex-grow text-center truncate">Google Drive Preview</div>
+                    </div>
+                    <iframe src="https://drive.google.com/file/d/1f6WgnxPNUhk8yi9fmyXUzhRlb1WQ4OWp/preview" class="w-full h-[600px] border-none" loading="lazy"></iframe>
+                </div>
+            </div>
 
-        <!-- Project Content: Tuần 3 -->
-        <div id="tuan3" class="project-card tab-content">
-            <h2 class="gradient-text">Nhiệm vụ 3: Viết Prompt hiệu quả</h2>
-            <p><strong>Mục tiêu:</strong> Giao tiếp tối ưu với LLMs (Large Language Models).<br>
-            <strong>Quá trình:</strong> Áp dụng kỹ thuật Role-prompting và Chain-of-Thought giải thích công nghệ CRISPR/Cas9. So sánh sự khác biệt chất lượng đầu ra.</p>
-            <iframe src="https://docs.google.com/document/d/1XreSpiXFNa57EEnQNAOE0weXrKPGl4ln/preview" loading="lazy"></iframe>
-        </div>
+            <!-- Project Content: Tuần 2 -->
+            <div id="tuan2" class="tab-content bg-white border-4 border-deep-navy rounded-3xl p-8 md:p-10 shadow-bold">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-brand-blue text-white p-3 rounded-2xl border-4 border-deep-navy shadow-bold-sm -rotate-6">
+                        <i data-lucide="search" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="font-display font-black text-3xl text-deep-navy">Nhiệm vụ 2: Tìm kiếm & Đánh giá thông tin</h2>
+                </div>
+                <div class="bg-soft-blue border-2 border-brand-blue rounded-2xl p-6 mb-8 text-lg font-medium text-slate-700">
+                    <p class="mb-2"><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block mb-1 shadow-sm">🎯 Mục tiêu:</span> Thu thập tài liệu học thuật bằng các công cụ tìm kiếm nâng cao.</p>
+                    <p><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block shadow-sm">⚙️ Quá trình:</span> Sử dụng toán tử Boolean (AND, OR) tìm kiếm tài liệu về AI trong SCM, đồng thời kết hợp AI Consensus/Elicit tổng hợp nghiên cứu Graphene.</p>
+                </div>
+                <div class="border-4 border-deep-navy rounded-2xl overflow-hidden shadow-bold-sm bg-white">
+                    <div class="bg-soft-blue border-b-4 border-deep-navy px-4 py-3 flex gap-2 items-center">
+                        <div class="w-4 h-4 rounded-full bg-red-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-green-400 border-2 border-deep-navy"></div>
+                        <div class="ml-4 bg-white border-2 border-deep-navy rounded-full px-4 py-0.5 text-xs font-bold text-deep-navy opacity-70 flex-grow text-center truncate">Google Docs Preview</div>
+                    </div>
+                    <iframe src="https://docs.google.com/document/d/1Byd2KJ3eZu9h5PseV2Zatxcx0vbrbpgY/preview" class="w-full h-[600px] border-none" loading="lazy"></iframe>
+                </div>
+            </div>
 
-        <!-- Project Content: Tuần 4 -->
-        <div id="tuan4" class="project-card tab-content">
-            <h2 class="gradient-text">Nhiệm vụ 4: Hợp tác trực tuyến</h2>
-            <p><strong>Mục tiêu:</strong> Tối ưu hóa hiệu suất làm việc nhóm từ xa.<br>
-            <strong>Quá trình:</strong> Phân công nhiệm vụ trên Trello, lưu trữ tài nguyên qua Google Drive và họp định kỳ qua Google Meet để tạo video khoa học.</p>
-            <iframe src="https://docs.google.com/document/d/1Gx1QkbLMUtbaZOybcdcq4xPLVRJ8Fd_y/preview" loading="lazy"></iframe>
-        </div>
+            <!-- Project Content: Tuần 3 -->
+            <div id="tuan3" class="tab-content bg-white border-4 border-deep-navy rounded-3xl p-8 md:p-10 shadow-bold">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-brand-blue text-white p-3 rounded-2xl border-4 border-deep-navy shadow-bold-sm rotate-6">
+                        <i data-lucide="bot" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="font-display font-black text-3xl text-deep-navy">Nhiệm vụ 3: Viết Prompt hiệu quả</h2>
+                </div>
+                <div class="bg-soft-blue border-2 border-brand-blue rounded-2xl p-6 mb-8 text-lg font-medium text-slate-700">
+                    <p class="mb-2"><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block mb-1 shadow-sm">🎯 Mục tiêu:</span> Giao tiếp tối ưu với LLMs (Large Language Models).</p>
+                    <p><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block shadow-sm">⚙️ Quá trình:</span> Áp dụng kỹ thuật Role-prompting và Chain-of-Thought giải thích công nghệ CRISPR/Cas9. So sánh sự khác biệt chất lượng đầu ra.</p>
+                </div>
+                <div class="border-4 border-deep-navy rounded-2xl overflow-hidden shadow-bold-sm bg-white">
+                    <div class="bg-soft-blue border-b-4 border-deep-navy px-4 py-3 flex gap-2 items-center">
+                        <div class="w-4 h-4 rounded-full bg-red-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-green-400 border-2 border-deep-navy"></div>
+                    </div>
+                    <iframe src="https://docs.google.com/document/d/1XreSpiXFNa57EEnQNAOE0weXrKPGl4ln/preview" class="w-full h-[600px] border-none" loading="lazy"></iframe>
+                </div>
+            </div>
 
-        <!-- Project Content: Tuần 5 -->
-        <div id="tuan5" class="project-card tab-content">
-            <h2 class="gradient-text">Nhiệm vụ 5: Sáng tạo nội dung với AI</h2>
-            <p><strong>Mục tiêu:</strong> Tận dụng sức mạnh của AI tạo sinh trong thiết kế đa phương tiện.<br>
-            <strong>Quá trình:</strong> Dùng Claude tạo nội dung, DALL-E 3 tạo hình ảnh và Canva thiết kế Infographic chủ đề "Xu hướng AI trong giáo dục".</p>
-            <iframe src="https://docs.google.com/document/d/1lLr3TA-ktBTNGjJ96ICZCYR43yJF6DnR/preview" loading="lazy"></iframe>
-        </div>
+            <!-- Project Content: Tuần 4 -->
+            <div id="tuan4" class="tab-content bg-white border-4 border-deep-navy rounded-3xl p-8 md:p-10 shadow-bold">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-brand-blue text-white p-3 rounded-2xl border-4 border-deep-navy shadow-bold-sm -rotate-6">
+                        <i data-lucide="users" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="font-display font-black text-3xl text-deep-navy">Nhiệm vụ 4: Hợp tác trực tuyến</h2>
+                </div>
+                <div class="bg-soft-blue border-2 border-brand-blue rounded-2xl p-6 mb-8 text-lg font-medium text-slate-700">
+                    <p class="mb-2"><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block mb-1 shadow-sm">🎯 Mục tiêu:</span> Tối ưu hóa hiệu suất làm việc nhóm từ xa.</p>
+                    <p><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block shadow-sm">⚙️ Quá trình:</span> Phân công nhiệm vụ trên Trello, lưu trữ tài nguyên qua Google Drive và họp định kỳ qua Google Meet để tạo video khoa học.</p>
+                </div>
+                <div class="border-4 border-deep-navy rounded-2xl overflow-hidden shadow-bold-sm bg-white">
+                    <div class="bg-soft-blue border-b-4 border-deep-navy px-4 py-3 flex gap-2 items-center">
+                        <div class="w-4 h-4 rounded-full bg-red-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-green-400 border-2 border-deep-navy"></div>
+                    </div>
+                    <iframe src="https://docs.google.com/document/d/1Gx1QkbLMUtbaZOybcdcq4xPLVRJ8Fd_y/preview" class="w-full h-[600px] border-none" loading="lazy"></iframe>
+                </div>
+            </div>
 
-        <!-- Project Content: Tuần 6 -->
-        <div id="tuan6" class="project-card tab-content">
-            <h2 class="gradient-text">Nhiệm vụ 6: Sử dụng AI có trách nhiệm</h2>
-            <p><strong>Mục tiêu:</strong> Xây dựng bộ quy tắc đạo đức khi ứng dụng AI vào môi trường học thuật.<br>
-            <strong>Quá trình:</strong> Phân tích ranh giới liêm chính, trích dẫn, và lập bảng nguyên tắc cá nhân. Sản phẩm bao gồm báo cáo và một Infographic đính kèm.</p>
-            <iframe src="https://docs.google.com/document/d/1f3fvzcRXO5r8yMRkEVO9dYSY22pgLlBl/preview" loading="lazy"></iframe>
-            <iframe src="https://drive.google.com/file/d/1u3msn3wfCWD9Tz65nrmlCHVO8WkZoaj3/preview" style="height: 800px;" loading="lazy"></iframe>
-        </div>
+            <!-- Project Content: Tuần 5 -->
+            <div id="tuan5" class="tab-content bg-white border-4 border-deep-navy rounded-3xl p-8 md:p-10 shadow-bold">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-brand-blue text-white p-3 rounded-2xl border-4 border-deep-navy shadow-bold-sm rotate-6">
+                        <i data-lucide="palette" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="font-display font-black text-3xl text-deep-navy">Nhiệm vụ 5: Sáng tạo nội dung với AI</h2>
+                </div>
+                <div class="bg-soft-blue border-2 border-brand-blue rounded-2xl p-6 mb-8 text-lg font-medium text-slate-700">
+                    <p class="mb-2"><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block mb-1 shadow-sm">🎯 Mục tiêu:</span> Tận dụng sức mạnh của AI tạo sinh trong thiết kế đa phương tiện.</p>
+                    <p><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block shadow-sm">⚙️ Quá trình:</span> Dùng Claude tạo nội dung, DALL-E 3 tạo hình ảnh và Canva thiết kế Infographic chủ đề "Xu hướng AI trong giáo dục".</p>
+                </div>
+                <div class="border-4 border-deep-navy rounded-2xl overflow-hidden shadow-bold-sm bg-white">
+                    <div class="bg-soft-blue border-b-4 border-deep-navy px-4 py-3 flex gap-2 items-center">
+                        <div class="w-4 h-4 rounded-full bg-red-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-green-400 border-2 border-deep-navy"></div>
+                    </div>
+                    <iframe src="https://docs.google.com/document/d/1lLr3TA-ktBTNGjJ96ICZCYR43yJF6DnR/preview" class="w-full h-[600px] border-none" loading="lazy"></iframe>
+                </div>
+            </div>
 
-        <!-- Project Content: Tuần 7 -->
-        <div id="tuan7" class="project-card tab-content">
-            <h2 class="gradient-text">Nhiệm vụ 7: Tổng quan Tài liệu Khoa học với AI</h2>
-            <p><strong>Mục tiêu:</strong> Tối ưu hóa quy trình tìm kiếm, đánh giá và tổng hợp tài liệu nghiên cứu chuyên sâu bằng các công cụ Trí tuệ nhân tạo học thuật.<br>
-            <strong>Quá trình:</strong> Sử dụng Consensus và Elicit để chắt lọc 5 bài báo chất lượng cao (chỉ số IF ≥ 3.0) về vật liệu Graphene từ 47 kết quả tìm kiếm. Lập bảng phân tích so sánh chi tiết các phương pháp, kết quả, hạn chế của từng nghiên cứu và dùng Google Scholar để xác minh chéo tính chính xác của trích dẫn.</p>
-            <iframe src="https://docs.google.com/document/d/1nOLrIkMZIa2Ukv5lXhMWeO0idyoCETci/preview" style="height: 800px;" loading="lazy"></iframe>
-        </div>
-    </div>
+            <!-- Project Content: Tuần 6 -->
+            <div id="tuan6" class="tab-content bg-white border-4 border-deep-navy rounded-3xl p-8 md:p-10 shadow-bold">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-brand-blue text-white p-3 rounded-2xl border-4 border-deep-navy shadow-bold-sm -rotate-6">
+                        <i data-lucide="scale" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="font-display font-black text-3xl text-deep-navy">Nhiệm vụ 6: Sử dụng AI có trách nhiệm</h2>
+                </div>
+                <div class="bg-soft-blue border-2 border-brand-blue rounded-2xl p-6 mb-8 text-lg font-medium text-slate-700">
+                    <p class="mb-2"><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block mb-1 shadow-sm">🎯 Mục tiêu:</span> Xây dựng bộ quy tắc đạo đức khi ứng dụng AI vào môi trường học thuật.</p>
+                    <p><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block shadow-sm">⚙️ Quá trình:</span> Phân tích ranh giới liêm chính, trích dẫn, và lập bảng nguyên tắc cá nhân. Sản phẩm bao gồm báo cáo và một Infographic đính kèm.</p>
+                </div>
+                
+                <div class="space-y-8">
+                    <!-- Iframe 1 -->
+                    <div class="border-4 border-deep-navy rounded-2xl overflow-hidden shadow-bold-sm bg-white">
+                        <div class="bg-soft-blue border-b-4 border-deep-navy px-4 py-3 flex gap-2 items-center">
+                            <div class="w-4 h-4 rounded-full bg-red-400 border-2 border-deep-navy"></div>
+                            <div class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-deep-navy"></div>
+                            <div class="w-4 h-4 rounded-full bg-green-400 border-2 border-deep-navy"></div>
+                            <div class="ml-4 bg-white border-2 border-deep-navy rounded-full px-4 py-0.5 text-xs font-bold text-deep-navy opacity-70 flex-grow text-center truncate">Báo cáo (Google Docs)</div>
+                        </div>
+                        <iframe src="https://docs.google.com/document/d/1f3fvzcRXO5r8yMRkEVO9dYSY22pgLlBl/preview" class="w-full h-[600px] border-none" loading="lazy"></iframe>
+                    </div>
 
-    <!-- Script xử lý chức năng Tabs -->
+                    <!-- Iframe 2 -->
+                    <div class="border-4 border-deep-navy rounded-2xl overflow-hidden shadow-bold-sm bg-white">
+                        <div class="bg-soft-blue border-b-4 border-deep-navy px-4 py-3 flex gap-2 items-center">
+                            <div class="w-4 h-4 rounded-full bg-red-400 border-2 border-deep-navy"></div>
+                            <div class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-deep-navy"></div>
+                            <div class="w-4 h-4 rounded-full bg-green-400 border-2 border-deep-navy"></div>
+                            <div class="ml-4 bg-white border-2 border-deep-navy rounded-full px-4 py-0.5 text-xs font-bold text-deep-navy opacity-70 flex-grow text-center truncate">Infographic (Google Drive)</div>
+                        </div>
+                        <iframe src="https://drive.google.com/file/d/1u3msn3wfCWD9Tz65nrmlCHVO8WkZoaj3/preview" class="w-full h-[800px] border-none" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Content: Tuần 7 -->
+            <div id="tuan7" class="tab-content bg-white border-4 border-deep-navy rounded-3xl p-8 md:p-10 shadow-bold">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-brand-blue text-white p-3 rounded-2xl border-4 border-deep-navy shadow-bold-sm rotate-6">
+                        <i data-lucide="library" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="font-display font-black text-3xl text-deep-navy">Nhiệm vụ 7: Tổng quan Tài liệu Khoa học</h2>
+                </div>
+                <div class="bg-soft-blue border-2 border-brand-blue rounded-2xl p-6 mb-8 text-lg font-medium text-slate-700">
+                    <p class="mb-2"><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block mb-1 shadow-sm">🎯 Mục tiêu:</span> Tối ưu hóa quy trình tìm kiếm, đánh giá và tổng hợp tài liệu nghiên cứu chuyên sâu bằng các công cụ Trí tuệ nhân tạo học thuật.</p>
+                    <p><span class="font-bold text-brand-blue bg-white px-2 py-1 rounded border-2 border-brand-blue inline-block shadow-sm">⚙️ Quá trình:</span> Sử dụng Consensus và Elicit để chắt lọc 5 bài báo chất lượng cao (chỉ số IF ≥ 3.0) về vật liệu Graphene từ 47 kết quả tìm kiếm. Lập bảng phân tích so sánh chi tiết các phương pháp, kết quả, hạn chế của từng nghiên cứu và dùng Google Scholar để xác minh chéo tính chính xác của trích dẫn.</p>
+                </div>
+                <div class="border-4 border-deep-navy rounded-2xl overflow-hidden shadow-bold-sm bg-white">
+                    <div class="bg-soft-blue border-b-4 border-deep-navy px-4 py-3 flex gap-2 items-center">
+                        <div class="w-4 h-4 rounded-full bg-red-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-deep-navy"></div>
+                        <div class="w-4 h-4 rounded-full bg-green-400 border-2 border-deep-navy"></div>
+                        <div class="ml-4 bg-white border-2 border-deep-navy rounded-full px-4 py-0.5 text-xs font-bold text-deep-navy opacity-70 flex-grow text-center truncate">Bảng Tổng Hợp Research</div>
+                    </div>
+                    <iframe src="https://docs.google.com/document/d/1nOLrIkMZIa2Ukv5lXhMWeO0idyoCETci/preview" class="w-full h-[800px] border-none" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Đồng Bộ -->
+    <footer class="bg-white border-t-4 border-deep-navy py-12 mt-10">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <p class="font-black text-xl text-deep-navy">Mạnh Quân DQ</p>
+                <p class="font-bold text-slate-500">© 2026 UET Student Portfolio</p>
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="w-12 h-12 bg-white border-4 border-deep-navy rounded-2xl flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors hover:-translate-y-1 shadow-bold-sm">
+                    <i data-lucide="github"></i>
+                </a>
+                <a href="#" class="w-12 h-12 bg-white border-4 border-deep-navy rounded-2xl flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors hover:-translate-y-1 shadow-bold-sm">
+                    <i data-lucide="facebook"></i>
+                </a>
+                <a href="#" class="w-12 h-12 bg-white border-4 border-deep-navy rounded-2xl flex items-center justify-center hover:bg-brand-blue hover:text-white transition-colors hover:-translate-y-1 shadow-bold-sm">
+                    <i data-lucide="mail"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script xử lý Tabs -->
     <script>
+        // Khởi tạo icon từ Lucide
+        lucide.createIcons();
+
         function openTab(evt, tabName) {
-            // Lấy tất cả các phần tử có class "tab-content" và ẩn chúng đi
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
+            // Ẩn tất cả nội dung tab
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].classList.remove("active-tab");
             }
 
-            // Lấy tất cả các phần tử có class "tab-btn" và xóa class "active"
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
+            // Xóa class active khỏi tất cả các nút
+            var tablinks = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tablinks.length; i++) {
                 tablinks[i].classList.remove("active");
             }
 
-            // Hiển thị tab hiện tại và thêm class "active" vào nút đã click
+            // Hiển thị tab được chọn và thêm trạng thái active cho nút bấm
             document.getElementById(tabName).classList.add("active-tab");
             evt.currentTarget.classList.add("active");
         }
     </script>
 </body>
 </html>
+```eof
+
+Tuyệt vời! File dự án (`projects.html`) của Quân đã được nâng cấp với các điểm nhấn sau:
+
+1. **Đồng bộ Giao diện (Consistency):** Header và Footer được giữ nguyên y hệt trang chủ để tạo luồng trải nghiệm mượt mà. Tone màu xanh dương cá tính với phông chữ Outfit/Quicksand được áp dụng triệt để.
+2. **Neo-Brutalism Tabs:** Các nút bấm chuyển tuần (Từ Tuần 1 -> Tuần 7) được thiết kế siêu "cứng cáp". Khi click vào (trạng thái Active), nút sẽ lún xuống và đổi sang màu vàng (`accent-yellow`) để đánh dấu rõ ràng. Mình cũng đã thêm icon đại diện dễ thương vào từng tuần.
+3. **Hiệu ứng Pop-in:** Khi chuyển qua lại giữa các tuần, nội dung sẽ không hiện ra khô khan mà có hiệu ứng nảy (pop-in) nhẹ cực kỳ "smooth".
+4. **Browser Window Mockup:** Đây là phần ăn tiền nhất! Thay vì để các thẻ `iframe` Google Drive/Docs nằm trơ trọi, mình đã bọc chúng vào một giao diện giả lập "cửa sổ trình duyệt macOS" (có 3 nút đỏ, vàng, xanh và thanh địa chỉ). Nó khiến trang web trông cực kỳ ngầu, sáng tạo và thể hiện đậm chất "dân IT"!
+
+Bạn hãy lưu lại và kiểm tra thử nhé. Cần tinh chỉnh thêm phần nào cứ báo mình!
